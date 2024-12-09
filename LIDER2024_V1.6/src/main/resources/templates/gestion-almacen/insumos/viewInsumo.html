@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+	<title>Listado de Insumos</title>
+	<link rel="icon" type="image/png" href="/img/logo.png">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="/stylesInsumo.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>	
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<body>
+	<div class="" style="margin:0px 5px">
+	<header>
+		<a href="" class="logo">
+				<img alt="Lider S.A." src="/img/logo-lider.png">
+			</a>
+		<h2>Lista de Insumos</h2>
+	</header>
+	<div class="buttons">
+		<a th:href="@{/nuevoInsumo}" class="btn btn-success"style="border: solid 1px #fff;">
+	        	<iconify-icon icon="fluent:form-new-20-regular"></iconify-icon> Nuevo Insumo</a>
+		<a th:href="@{/index}" class="btn btn-info"><img alt="" src="/img/home.png" width="25px"> Home</a>
+	</div>
+		
+		<table class="table">
+		<thead>
+		<tr class="encabezado">
+		<th>ID</th>
+		<th>INSUMO</th>
+		<th>DESCRIPCION GENERAL</th>
+		<th>STOCK</th>
+		<th>UNIDAD DE MEDIDA</th>
+		<th>PRECIO UNITARIO (S/.)</th>
+		<th>PROVEEDOR (ID)</th>
+		<th>INGRESO A ALMACEN</th>
+		<th>FECHA DE VENCIMIENTO</th>
+		<th>UBICACION EN ALMACEN</th>
+		<th>OBSERVACIONES</th>
+		<th>ACCIONES</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="ins:${listaInsumos}">
+		<td th:text="${ins.id}"></td>
+		<td th:text="${ins.nombre}"></td>
+		<td th:text="${ins.descripcion}"></td>
+		<td th:text="${ins.cantidad_stock}"></td>
+		<td th:text="${ins.unidad_medida}"></td>
+		<td th:text="${ins.precio_unitario}"></td>
+		<td th:text="${ins.id_proveedor}"></td>
+		<td th:text="${ins.fecha_ingreso}"></td>
+		<td th:text="${ins.fecha_vencimiento}"></td>
+		<td th:text="${ins.ubicacion_almacen}"></td>
+		<td th:text="${ins.observaciones}"></td>
+		<td>
+		<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+			<a th:href="@{/editarInsumo/{id}(id=${ins.id})}" class="btn btn-outline-primary"> <iconify-icon icon="flowbite:edit-solid" width="1.2rem" height="1.2rem"></iconify-icon> Editar</a>
+			<a th:onclick="eliminar([[${ins.id}]])" class="btn btn-outline-danger"  onclick="openConfirmationModal()"><iconify-icon icon="fluent:delete-12-filled" width="1.2rem" height="1.2rem"></iconify-icon> Borrar</a>
+		
+		</div>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+		<!-- PAGINACION -->
+		<div class="pagination" style="display: flex; justify-content: space-between;">
+			<div>
+				<p>Hay <strong th:text="${totalIns}"></strong> insumos en total</p>
+			</div>
+			<div>	
+		    	<ul class="pagination justify-content-center">
+		        	<li th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+		        	    <a th:href="@{/insumo(page=0, size=${pageSize})}" class="page-link">&laquo;</a>
+		        	</li>
+		        	<li th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+		        	    <a th:href="@{/insumo(page=${currentPage - 1}, size=${pageSize})}" class="page-link">&lt;</a>
+		        	</li>
+		        	<li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" th:class="${currentPage == page} ? 'page-item active' : 'page-item'">
+		        	    <a th:href="@{/insumo(page=${page}, size=${pageSize})}" class="page-link" th:text="${page + 1}"></a>
+		        	</li>
+		        	<li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+		        	    <a th:href="@{/insumo(page=${currentPage + 1}, size=${pageSize})}" class="page-link">&gt;</a>
+		        	</li>
+		        	<li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+		        	    <a th:href="@{/insumo(page=${totalPages - 1}, size=${pageSize})}" class="page-link">&raquo;</a>
+		        	</li>
+		    	</ul>
+		    </div>
+		</div>
+
+	</div>
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+  function eliminar(id){
+	  swal({
+		  title: "¿Estás seguro que deseas eliminar?",
+		  text: "Una vez borrado, no podrá recuperar esta información",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((Ok) => {
+		  if (Ok) {
+			  $.ajax({
+				  url:"/borrarInsumo/" + id,
+				  	sucess: function(res){
+					  console.log(res);
+				  }
+			  });
+		    swal("¡Eliminado!", "El insumo ha sido eliminado.", {
+		      icon: "success",
+		    }).then((ok)=>{
+		    	if(ok){
+		    		location.href="/insumo"
+		    	}
+		    }
+		    
+		    );
+		  } else {
+		    swal("El insumo esta a salvo.");
+		  }
+		});
+  }
+</script>
+</html>

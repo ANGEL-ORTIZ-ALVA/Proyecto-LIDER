@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/login/style.css">
+    <link rel="stylesheet" href="/styles/login/style-contra.css">
+    <title>Restaurar Contraseña</title>
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo">
+            <a>
+                <img src="/img/logo-lider.png" alt="">
+            </a>
+        </div>
+        <form action="">
+            <div class="title">
+                <label for="">Recuperar contraseña</label>
+            </div>
+            <div class="text">
+                <p>Por favor introduzca su <strong>correo electrónico</strong> para recuperar su cuenta:</p>
+            </div>
+            <div class="user-box">
+                <input type="email" name="email" required>
+                <label for="">Correo electrónico</label>
+            </div>
+            <center>
+                <button class="button" type="submit">Recuperar contraseña<span></span></button>
+                <div class="btn">
+                    <a class="button2" th:href="@{/login}">Iniciar sesion</a>
+                    <a class="button3" th:href="@{/registrarse-usuario}">Registrarse</a>
+                </div>
+            </center>
+
+        </form>
+    </div>
+</body>

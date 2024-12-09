@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/login/style.css">
+    <link rel="stylesheet" href="/styles/login/style-regis.css">
+    <title>Registrar Personal - Paso 2</title>
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+</head>
+<body>
+	<div class="login-box">
+		<div class="logo">
+	            <a href="#">
+	                <img src="/img/logo-lider.png" alt="">
+	            </a>
+	    </div>
+    	<form action="#" th:action="@{/registro-personal}" th:object="${personal}" method="post">
+    	    <div class="title">
+        		<label for="">Registro Personal - Paso 2 </label>
+        	</div>
+        	<div class="user-box">
+    	    	<input type="text" id="nombre" th:field="*{nombre}" required />
+        		<label for="nombre">Nombre:</label>
+        	</div>
+        	<div class="user-box">
+    	    	<input type="text" id="apellido" th:field="*{apellido}" required />
+        		<label for="apellido">Apellido:</label>
+        	</div>
+        	<div class="user-select">
+    	    	<select id="id_rol" th:field="*{id_rol}">
+    	        	<option th:each="rol : ${listaR}" th:value="${rol.id}" th:text="${rol.nombre_rol}"></option>
+    	    	</select>
+        		<label for="id_rol">Rol:</label>
+        	</div>
+			<div class="user-select">
+    	        <select th:field="*{usuario}">
+    	            <option th:each="u : ${listaUs}" th:value="${u.id}" th:text="${u.nombreUsuario}"></option>
+    	        </select>
+				<label>Usuarios:</label>
+			</div>
+			<center>
+    	    <button class="button" type="submit">Registrar</button>			
+			</center>
+    	</form>
+    </div>
+</body>
+</html>

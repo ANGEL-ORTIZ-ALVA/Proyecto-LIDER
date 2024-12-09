@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo CRSOREA</title>
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+    	<header>
+			<a href="" class="logo">
+				<img alt="Lider S.A." src="/img/logo-lider.png">
+			</a>
+        	<h2>Nuevo Comprobante de Solicitud de Reabastecimiento de Almacen</h2>
+        </header>
+        <form id="creabastecimientoForm" th:action="@{/guardarCrsorea}" th:object="${crsorea}" method="post">
+        
+        	<div class="mb-3">
+        	<input type="text" class="form-control" th:field="*{id_solicitud}" readonly="readonly"/>
+        	</div>
+        	
+        	<div class="mb-3">
+                <label for="fecha" class="form-label">Fecha de Recepcion:</label>
+                <input type="date" class="form-control" name="fecha_recepcion" th:field="*{fecha_recepcion}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="monto_total">Monto Total:</label>
+            	<input type="number" class="form-control" step="0.01" th:field="*{monto_total}" required />
+            </div>
+            
+            <div class="mb-3">
+                <label for="estado" class="form-label">Estado:</label>
+            	<select class="form-control" th:field="*{estado}">
+                <option value="pendiente">Pendiente</option>
+                <option value="recepcionado">Recepcionado</option>
+                <option value="rechazado">Rechazado</option>
+            </select>
+            </div>
+            
+            
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <textarea class="form-control" name="descripcion" th:field="*{descripcion}" required rows="4" cols="50"></textarea>
+            </div>
+
+            
+            <button type="submit" class="btn btn-success" style="border: solid 1px #fff;"><iconify-icon icon="ic:round-save" width="1.2rem" height="1.2rem"></iconify-icon> Guardar</button>
+            <a th:href="@{/sorea}" class="btn btn-secondary" style="border: solid 1px #fff;"><iconify-icon icon="streamline:return-2-solid" width="1.2rem" height="1.2rem"></iconify-icon> Regresar</a>
+        </form>
+    </div>
+
+   
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+ <script>
+ 
+</script>
+</html>

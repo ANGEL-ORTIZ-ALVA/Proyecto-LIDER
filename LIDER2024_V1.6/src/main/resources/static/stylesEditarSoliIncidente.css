@@ -1,0 +1,51 @@
+header{
+	margin-left: 13%;
+}
+
+.cuerpo {
+    background-image: url('../img/fondo-editar-soli-inci.png'); /* Reemplaza '/ruta/a/tu/imagen.jpg' con la ruta correcta */
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-position: center; /* Centra la imagen en la pantalla */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+}
+
+.container {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 520px;
+	background-image: radial-gradient(circle at 61.44% -14.9%, #e8db7f 0, #e8cf6f 16.67%, #e8c360 33.33%, #e7b550 50%, #e7a742 66.67%, #e79936 83.33%, #e78b2d 100%);    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	border: 5px solid dimgrey;
+    border-radius: 3%;
+}
+
+h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-right: 11%;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary {
+    margin-right: 10px;
+}
+
+.btn-group {
+    margin-top: 10px;
+    margin-left: 150px;
+}
+.botones{
+	margin-top: 4%;
+	margin-left: 29%;	
+}

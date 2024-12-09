@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/login/style.css">
+    <link rel="stylesheet" href="/styles/login/style-iniciar.css">
+    <title>Login</title>
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+</head>
+<body>
+	<div class="login-box">
+		<div class="logo">
+            <a href="/login">
+                <img src="/img/logo-lider.png" alt="">
+            </a>
+        </div>
+	
+		<form th:action="@{/login}" method="post">
+			<div class="user-box">
+            	<input type="text" name="username" required>
+           		<label for="">Nombre de usuario</label>
+        	</div>
+        	<div class="user-box">
+        		<input type="password" name="password" required>
+            	<label for="">Contraseña</label>
+        	</div>
+        	<center>
+            	    <button class="button" type="submit">Ingresar<span></span></button>
+                	<div class="btn">
+                    	<a class="button2" th:href="@{/registrarse-usuario}">Registrarse</a>
+                    	<a class="button3" th:href="@{/restaurar-contrasena}">Olvide mi contraseña</a>
+                	</div>
+        	</center>
+		</form>
+	</div>
+
+</body>
+</html>

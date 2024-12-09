@@ -1,0 +1,51 @@
+header{
+	margin-left: 13%;
+}
+
+.cuerpo {
+    background-image: url('../img/fondo-editar-crsri.png'); /* Reemplaza '/ruta/a/tu/imagen.jpg' con la ruta correcta */
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-position: center; /* Centra la imagen en la pantalla */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+}
+
+.container {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 530px;
+	background-image: radial-gradient(circle at 40.79% -2.23%, #ffe492 0, #ffcf7d 25%, #f7b463 50%, #e9994b 75%, #df833c 100%);
+	border: 5px solid dimgrey;
+    border-radius: 3%;
+}
+
+h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-right: 11%;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary {
+    margin-right: 10px;
+}
+
+.btn-group {
+    margin-top: 10px;
+    margin-left: 150px;
+}
+.botones{
+	margin-top: 4%;
+	margin-left: 26.5%;	
+}

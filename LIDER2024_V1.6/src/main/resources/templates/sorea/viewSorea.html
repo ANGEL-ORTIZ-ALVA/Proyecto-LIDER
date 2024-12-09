@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+	<title>Solicitudes de Reabastecimiento de Almacen (SOREA)</title>
+	<link rel="icon" type="image/png" href="/img/logo.png">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
+	<link rel="stylesheet" href="/stylesSOREA.css">
+	<link rel="stylesheet" th:href="@{/styles/footer.css}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="" style="margin:0px 5px">
+		<header>
+			<a href="" class="logo">
+				<img alt="Lider S.A." src="/img/logo-lider.png">
+			</a>
+			<h2>Solicitudes de Reabastecimiento del Almacen (SOREA)</h2>
+		</header>
+		<div class="buttons">
+			<a th:href="@{/nuevoReabastecimiento}" class="btn btn-primary" style="border: solid 1px #fff;">
+				<iconify-icon icon="fluent:form-new-20-regular"></iconify-icon>  Nueva Solicitud de Reabastecimiento
+			</a>
+			<a th:href="@{/crsorea}" class="btn btn-outline-secondary" style="border: solid 1px #fff;">VER COMPROBANTES DE SOREA
+			</a>
+			<a th:href="@{/index}" class="btn btn-info"><img alt="" src="/img/home.png" width="25px"> Home</a>
+		</div>
+		<table class="tabla-style table table-dark table-hover">
+			 <thead>
+                <tr class="encabezado">
+                    <th>ID Solicitud</th>
+                    <th>ID Proveedor</th>
+                    <th>ID de Recepcionista</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Fecha de Recepcion</th>
+                    <th>Descripción</th>
+                    <th>Acciónes</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+            	<tr th:each="rea : ${listaReabastecimiento}">
+            		<td th:text="${rea.id}"></td>
+                    <td th:text="${rea.id_proveedor}"></td>
+                    <td th:text="${rea.recepcionista}"></td>
+					<td th:text="${rea.fecha_solicitud}"></td>
+					<td th:text="${rea.fecha_recepcion}"></td>
+                    <td th:text="${rea.descripcion}"></td>
+                    <td class="btns">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+	                    <a th:href="@{/editarReabastecimiento/{id}(id=${rea.id})}" class="btn btn-outline-warning"><iconify-icon icon="flowbite:edit-solid" width="1.2rem" height="1.2rem"></iconify-icon> Editar Soli.</a>
+	                    <a th:href="@{/nuevoDetalleSOREA/{id_SOREA}(id_SOREA=${rea.id})}" class="btn btn-outline-success"><iconify-icon icon="fluent:form-new-20-filled" width="1.2rem" height="1.2rem"></iconify-icon> Agregar Insumo</a>
+	                    <a th:href="@{/sorea/verProductosSolicitud/{id_SOREA}(id_SOREA=${rea.id})}" class="btn btn-outline-info"><iconify-icon icon="material-symbols:list-alt" width="1.2rem" height="1.2rem"></iconify-icon> Ver insumos solicitados</a>
+	                    <a th:onclick="eliminar([[${rea.id}]])" class="btn btn-outline-danger"  onclick="openConfirmationModal()"><iconify-icon icon="fluent:delete-12-filled" width="1.2rem" height="1.2rem"></iconify-icon> Borrar Solicitud</a>
+                    
+                    	 <a th:if="${soreaToCrsoreaMap[rea.id]}" th:href="@{'/verCrsorea/' + ${soreaToCrsoreaMap[rea.id]}}" class="btn btns btn-info">
+                        <iconify-icon icon="material-symbols:visibility" width="1.2rem" height="1.2rem"></iconify-icon> Ver Comprobante
+                    </a>
+                    <a th:if="!${soreaToCrsoreaMap[rea.id]}" th:href="@{/nuevoCrsorea/{idSolicitud}(idSolicitud=${rea.id})}" class="btn btns btn-success">
+                        <iconify-icon icon="fluent:form-new-20-filled" width="1.2rem" height="1.2rem"></iconify-icon> Crear Comprobante
+                    </a>
+                    
+                    </div>
+                    
+                    </td>
+             	</tr>
+            </tbody>
+		</table>
+		<!-- PAGINACION -->
+<div class="pagination" style="display: flex; justify-content: space-between;">
+	<div style="color:white; margin-top:10px;">
+		<p><iconify-icon icon="f7:doc-plaintext" width="1.2rem" height="1.2rem"></iconify-icon> Hay <strong th:text="${totalRea}"></strong> solicitudes de reabastecimiento en total</p>
+	</div>
+	<div style="margin-top:10px;color:black;">	
+    	<ul class="pagination justify-content-center">
+        	<li th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+        	    <a th:href="@{/sorea(page=0, size=${pageSize})}" class="page-link">&laquo;</a>
+        	</li>
+        	<li th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+        	    <a th:href="@{/sorea(page=${currentPage - 1}, size=${pageSize})}" class="page-link">&lt;</a>
+        	</li>
+        	<li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" th:class="${currentPage == page} ? 'page-item active' : 'page-item'">
+        	    <a th:href="@{/sorea(page=${page}, size=${pageSize})}" class="page-link" th:text="${page + 1}"></a>
+        	</li>
+        	<li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+        	    <a th:href="@{/sorea(page=${currentPage + 1}, size=${pageSize})}" class="page-link">&gt;</a>
+        	</li>
+        	<li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+        	    <a th:href="@{/sorea(page=${totalPages - 1}, size=${pageSize})}" class="page-link">&raquo;</a>
+        	</li>
+    	</ul>
+    </div>
+</div>
+		
+	</div>
+	
+</body>
+<div th:insert="~{fragments/footer :: footer}"></div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+function eliminar(id){
+	  swal({
+		  title: "¿Estas seguro que deseas elminar el registro?",
+		  text: "Una vez eliminado el registro, No se podra recuperar!",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((Ok) => {
+		  if (Ok) {
+			  $.ajax({
+				  url:"/borrarReabastecimiento/" + id,
+				  	sucess: function(res){
+					  console.log(res);
+				  }
+			  });
+		    swal("Poof! El registro ha sido eliminado!", {
+		      icon: "success",
+		    }).then((ok)=>{
+		    	if(ok){
+		    		location.href="/sorea"
+		    	}
+		    }
+		    
+		    );
+		  } else {
+		    swal("El registro esta a salvo!");
+		  }
+		});
+}
+</script>
+</html>

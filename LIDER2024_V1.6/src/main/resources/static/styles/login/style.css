@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
+body {
+    background-color: #04445c;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.logo {
+    margin-bottom: 10%;
+    text-align: center;
+}
+
+.logo img {
+    width: 70%;
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    padding: 50px;
+    transform: translate(-50%, -50%) !important;
+    background: #ffffff;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgb(0 0 0 / 60%);
+    border-radius: 10px;
+}
+
+.login-box .user-box {
+    position: relative;
+}
+
+.login-box .user-box input {
+    width: 90%;
+    padding-left: 10px;
+    font-size: 18px;
+    color: #085b84;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #8f8f8f;
+    outline: none;
+    background: transparent;
+}
+
+.login-box .user-box label {
+    position: absolute;
+    top: -12px;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #085b84;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.login-box .user-box input:focus~label,
+.login-box .user-box input:valid~label {
+    top: -23px;
+    left: 0;
+    color: #f36424;
+    font-size: 12px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 0.1em;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.button2,
+.button3 {
+    padding: 10px;
+    margin-right: 0.5em;
+    color: #085b84;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid #7b7b7b47;
+    border-radius: 10px;
+}
+
+.button2:hover,
+.button3:hover {
+    border-radius: 16px;
+    background-color: #043a52;
+    color: white;
+}
+
+
+.login-box form .button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #085b84;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #7b7b7b8a;
+}
+
+.login-box .button:hover {
+    background: #f36424;
+    color: #efefef;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #ccdb2b 0 0 25px #ccdb2b 0 0 50px #ccdb2b 0 0 100px #ccdb2b;
+}
+
+.login-box .button span {
+    position: absolute;
+    display: block;
+}
+
+.login-box .button span:nth-child(1) {
+    bottom: 2px;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ccdb2b);
+    animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}

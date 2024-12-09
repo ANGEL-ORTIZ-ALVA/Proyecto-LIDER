@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Solicitud de Requerimientos de Insumos (SRI)</title>
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="/stylesEditarSRI.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body class="cuerpo">
+    <div class="container">
+        <header>
+            <a href="" class="logo">
+                <img alt="Lider S.A." src="/img/logo-lider.png">
+            </a>
+            <h1>Editar Solicitud</h1>
+        </header>
+
+        <form id="frmEditarSRI" th:action="@{/actualizarSri}" th:object="${sri}" method="post">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="id" th:field="*{id}" required readonly="readonly" hidden>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" for="id_personal">Personal:</span>
+                <select class="form-select" name="personal" th:field="*{personal}" required>
+                    <option th:each="personal : ${listaPersonal}" th:value="${personal.id_personal}" th:text="${personal.nombre} + ' ' + ${personal.apellido}"></option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" for="id_soli_incidente">Incidente:</span>
+                <select class="form-select" name="solicitudIncidente" th:field="*{solicitudIncidente}" required>
+                    <option th:each="solicitudIncidente : ${listaIncidente}" th:value="${solicitudIncidente.id}" th:text="${solicitudIncidente.incidente}"></option>
+                </select>
+            </div>
+           <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" for="fecha_solicitud">Fecha de Solicitud:</span>                
+                <input type="date" class="form-control" name="fecha_solicitud" th:field="*{fecha_solicitud}" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" for="estado">Estado:</span>
+                <select class="form-control" name="estado" th:field="*{estado}" required>
+                    <option value="pendiente" th:selected="${sri.estado == 'pendiente'}">Pendiente</option>
+                    <option value="aprobada" th:selected="${sri.estado == 'aprobada'}">Aprobada</option>
+                    <option value="rechazada" th:selected="${sri.estado == 'rechazada'}">Rechazada</option>
+                </select>
+                <h3 th:text="${sri.estado}" style="display:flex; padding:5px;" hidden></h3>
+            </div>
+            <div class="mb-3" th:if="${sri.estado == 'aprobada'}">
+                <label for="fecha_aprobacion" class="form-label">Fecha de Aprobación</label>
+                <input type="date" class="form-control" name="fecha_aprobacion" th:field="*{fecha_aprobacion}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default" for="observaciones">Observaciones:</span>
+                <textarea class="form-control" name="observaciones" th:field="*{observaciones}"></textarea>
+            </div>
+            <div class="botones">
+                <button type="submit" class="btn btn-info" style="border: solid 1px #fff;">
+                    <iconify-icon icon="radix-icons:update" width="1.2rem" height="1.2rem"></iconify-icon> Actualizar
+                </button>
+                <a th:href="@{/sri}" class="btn btn-secondary" style="border: solid 1px #fff;">
+                    <iconify-icon icon="streamline:return-2-solid" width="1.2rem" height="1.2rem"></iconify-icon> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        $('#frmEditarSRI').on('submit', function(event) {
+            event.preventDefault(); // Evita el envío inmediato del formulario
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    swal({
+                        title: "Solicitud Actualizada",
+                        text: "La solicitud se ha actualizado correctamente",
+                        icon: "success"
+                    }).then((value) => {
+                        window.location.href = "/sri"; // Redirige después de la alerta
+                    });
+                },
+                error: function(response) {
+                    swal({
+                        title: "Error",
+                        text: "Hubo un problema al actualizar la solicitud",
+                        icon: "error"
+                    });
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Denegado</title>
+</head>
+<style>	
+	@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+	 body {
+    	font-family: 'Montserrat', sans-serif;
+    	margin: 0;
+    	padding: 0;
+    	height: 100vh;
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+    	flex-direction: column;
+}
+	
+        .container {
+    		display: flex;
+    		align-items: center;
+    		justify-content: center;
+    		flex-direction: row;
+    		background-color: #fff;
+   			border-radius: 5px;
+    		padding: 20px;
+}
+
+        img {
+            width: 350px;
+            filter: drop-shadow(0 0 0.75rem);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        a {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+        center {
+    margin-top: 10px;
+}
+</style>
+<body>
+	<div class="container">
+		<div>
+			<img alt="" src="/img/error403.png">
+		</div>
+		<div>
+    		<h1>Error 403 - Acceso Denegado</h1>
+    		<p>No tienes el permiso para visualizar esta pagina</p>	
+		</div>	
+				
+	</div>
+	<center>
+		<a href="/" th:href="@{/}">Volver</a>
+	</center>
+    
+</body>
+</html>

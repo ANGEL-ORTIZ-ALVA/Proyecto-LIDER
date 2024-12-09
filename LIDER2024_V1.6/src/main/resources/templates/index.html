@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style-index.css">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <title>LIDER S.A. Sys</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container incidentes-container">
+            <form action="#" class="form-btn">
+                <h2>Módulos</h2>
+                <a th:href="@{/sorea}"  th:if="${#authorization.expression('hasRole(''ROLE_jefe_de_almacen'')')}">Solicitud de Reabastecimiento</a>
+                <a th:href="@{/insumo}" th:if="${#authorization.expression('hasRole(''ROLE_jefe_de_almacen'')')}">Lista de Insumos</a>
+                <a th:href="@{/proveedores}" th:if="${#authorization.expression('hasRole(''ROLE_jefe_de_almacen'')')}">Lista de Proveedores</a>      
+                <a th:href="@{/usuarios}" th:if="${#authorization.expression('hasRole(''ROLE_administrador'')')}">Lista de Usuarios</a>
+            </form>
+        </div>
+        <div class="form-container insumos-container">
+            <form action="#" class="form-btn">
+                <h2>Módulos</h2>
+                <a th:href="@{/solicitudes}" th:if="${#authorization.expression('hasRole(''ROLE_cliente'') or hasRole(''ROLE_jefe_de_almacen'') or hasRole(''ROLE_trabajador'')')}">Lista de Incidentes</a>
+                <a th:href="@{/sri}"  th:if="${#authorization.expression('hasRole(''ROLE_trabajador'')or hasRole(''ROLE_jefe_de_almacen'')')}">SRI</a>
+            </form>
+        </div>
+        
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <img class="logo" src="/img/logo-lider.png" alt="Lider S.A." width="60%">
+                    <h1>Gestión de Reabastecimiento de Insumos del almacén</h1>
+                    <p>Proceso 'Gestión de Reabastecimiento de Insumos del almacén'
+                    <br> (si no encuentra nada cambie a 'gestion de incidentes')</p>
+                    <button class="ghost" id="almacen">Cambiar a Gestión Incidentes</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <img class="logo" src="/img/logo-lider.png" alt="Lider S.A." width="60%">
+                    <h1>Gestión de requerimientos de insumos para la de atención de incidencias
+                    </h1>
+                    <p>Proceso 'Gestión de solicitudes de requerimientos de insumos para la de atención
+                        de incidencias
+                        <br> (si no encuentra nada cambie a 'gestion de almacén')</p>
+                    <button class="ghost" id="incidentes">Cambiar a Gestión Almacen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	<form style="" class="logout" th:action="@{/logout}" method="post">
+    	<button class="logout-btn" type="submit">Cerrar sesión</button>
+    </form>
+    <footer>
+        <p>
+            Lider S.A. Sys &copy; 2024
+        </p>
+    </footer>
+    <script src="scripts/script-index.js"></script>
+</body>
+
+</html>

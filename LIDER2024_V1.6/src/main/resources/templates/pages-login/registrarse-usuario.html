@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/login/style.css">
+    <link rel="stylesheet" href="/styles/login/style-regis.css">
+    <title>Registrar Usuario - Paso 1</title>
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+</head>
+<body>
+	<div class="login-box">
+	        <div class="logo">
+	            <a href="#">
+	                <img src="/img/logo-lider.png" alt="">
+	            </a>
+	        </div>
+    	<form th:action="@{/registro}" th:object="${usuario}" method="post">
+        	<div class="title">
+        	        <label for="">Registro de Usuario - Paso 1 </label>
+        	</div>
+        	<div class="user-box">
+        		<input type="text" id="nombreUsuario" th:field="*{nombreUsuario}" required>
+        		<label for="">Nombre de Usuario</label>
+        	</div>
+        	<div class="user-box">
+        		<input type="password" id="contrasena" th:field="*{contrasena}" required>
+        		<label for="">Contraseña</label>
+        	</div>
+        	<div class="user-box">
+        		<input type="email" id="correoElectronico" th:field="*{correoElectronico}" required>
+        		<label for="">Correo Electrónico</label>
+        	</div>        
+        	<div class="user-box">
+        		<input type="text" id="telefono" th:field="*{telefono}" required>
+        		<label for="">Teléfono</label>
+        	</div>
+        	<div class="user-select">
+        		<select id="tipoUsuario" th:field="*{tipoUsuario}">
+        	    	<option value="cliente">Cliente</option>
+        	    	<option value="trabajador">Trabajador</option>
+        	    	<option value="jefe_de_almacen">Jefe de Almacén</option>
+        	    	<option value="administrador">Administrador</option>
+        		</select>
+        		<label for="">Tipo de Usuario</label>
+        	</div>   
+        	<center>
+        		<button class="button" type="submit">Registrar<span></span></button>
+        		<div class="btn">
+        			<a class="button2" th:href="@{/login}">Iniciar sesion</a>
+        			<a class="button3 button-contra" th:href="@{/restaurar-contrasena}">Olvide mi contraseña</a>
+        		</div>
+        	</center>          	
+    	</form>
+    	<div th:if="${error}">
+    	    <p th:text="${error}" style="color: red;"></p>
+    	</div>
+    </div>
+</body>
+</html>

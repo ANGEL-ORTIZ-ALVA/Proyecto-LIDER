@@ -1,0 +1,25 @@
+@charset "ISO-8859-1";
+footer {
+	background-color: #222;
+	color: #fff;
+	font-size: 14px;
+	position: relative;
+    bottom: -11px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	z-index: 999;
+}
+
+footer p {
+	margin: 10px 0;
+}
+
+footer i {
+	color: red;
+}
+
+footer a {
+	color: #3c97bf;
+	text-decoration: none;
+}
